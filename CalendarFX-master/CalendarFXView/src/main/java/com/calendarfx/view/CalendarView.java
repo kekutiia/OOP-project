@@ -65,8 +65,10 @@ public class CalendarView extends DateControl {
     private static final String SELECTED_PAGE = "com.calendarfx.selectedPage"; //$NON-NLS-1$
 
     private SourceView sourceView;
-
+    
     private SearchResultView searchResultView;
+    
+    private EmailResultView emailResultView;
 
     private YearMonthView yearMonthView;
 
@@ -81,6 +83,8 @@ public class CalendarView extends DateControl {
     private DeveloperConsole developerConsole;
 
     private CustomTextField searchField;
+    
+    private CustomTextField emailField;
 
     private PrintView printView;
 
@@ -96,8 +100,10 @@ public class CalendarView extends DateControl {
         this.yearPage = new YearPage();
 
         this.searchField = (CustomTextField) TextFields.createClearableTextField();
+        this.emailField = (CustomTextField) TextFields.createClearableTextField();
         this.sourceView = new SourceView();
         this.searchResultView = new SearchResultView();
+        this.emailResultView = new EmailResultView();
         this.yearMonthView = new YearMonthView();
 
         if (Boolean.getBoolean("calendarfx.developer")) { //$NON-NLS-1$
@@ -108,6 +114,7 @@ public class CalendarView extends DateControl {
         selectedPage.set(dayPage);
 
         Bindings.bindBidirectional(searchField.visibleProperty(), showSearchFieldProperty());
+        Bindings.bindBidirectional(emailField.visibleProperty(), showEmailFieldProperty());
 
         /*
          * We do have a user agent stylesheet, but it doesn't seem to work
@@ -214,6 +221,15 @@ public class CalendarView extends DateControl {
     public final CustomTextField getSearchField() {
         return searchField;
     }
+    
+    /**
+     * Returns the email text field.
+     *
+     * @return the email field
+     */
+    public final CustomTextField getEmailField() {
+        return emailField;
+    }
 
     /**
      * Returns the search result view child control.
@@ -222,6 +238,15 @@ public class CalendarView extends DateControl {
      */
     public final SearchResultView getSearchResultView() {
         return searchResultView;
+    }
+    
+    /**
+     * Returns the email result view child control.
+     *
+     * @return the email result view
+     */
+    public final EmailResultView getEmailResultView() {
+        return emailResultView;
     }
 
     /**
@@ -495,6 +520,10 @@ public class CalendarView extends DateControl {
     // show search field support
 
     private final BooleanProperty showSearchField = new SimpleBooleanProperty(this, "showSearchField", true);
+    
+    // show email field support
+    
+    private final BooleanProperty showEmailField = new SimpleBooleanProperty(this, "showEmailField", true);
 
     /**
      * Controls whether the search field (text field) in the upper right corner
@@ -505,6 +534,16 @@ public class CalendarView extends DateControl {
     public final BooleanProperty showSearchFieldProperty() {
         return showSearchField;
     }
+    
+    /**
+     * Controls whether the email field (text field) in the upper right corner
+     * of the control will be shown to the user or not.
+     *
+     * @return true if the email field will be accessible by the user
+     */
+    public final BooleanProperty showEmailFieldProperty() {
+        return showEmailField;
+    }
 
     /**
      * Returns the value of {@link #showSearchFieldProperty()}.
@@ -514,6 +553,15 @@ public class CalendarView extends DateControl {
     public final boolean isShowSearchField() {
         return showSearchField.get();
     }
+    
+    /**
+     * Returns the value of {@link #showEmailFieldProperty()}.
+     *
+     * @return true if the email field will be accessible by the user
+     */
+    public final boolean isShowEmailField() {
+        return showEmailField.get();
+    }
 
     /**
      * Sets the value of {@link #showSearchFieldProperty()}.
@@ -522,6 +570,15 @@ public class CalendarView extends DateControl {
      */
     public final void setShowSearchField(boolean show) {
         showSearchField.set(show);
+    }
+    
+    /**
+     * Sets the value of {@link #showEmailFieldProperty()}.
+     *
+     * @param show if true the email field will be accessible by the user
+     */
+    public final void setShowEmailField(boolean show) {
+        showEmailField.set(show);
     }
 
     private final BooleanProperty showSourceTrayButton = new SimpleBooleanProperty(this, "showSourceTrayButton", true);
@@ -994,6 +1051,44 @@ public class CalendarView extends DateControl {
             @Override
             public String getDescription() {
                 return "Can the user access the search field or not."; //$NON-NLS-1$
+            }
+
+            @Override
+            public String getCategory() {
+                return CALENDAR_VIEW_CATEGORY;
+            }
+        });
+
+        items.add(new Item() {
+
+            @Override
+            public Optional<ObservableValue<?>> getObservableValue() {
+                return Optional.of(showEmailFieldProperty());
+            }
+
+            @Override
+            public void setValue(Object value) {
+                setShowEmailField((boolean) value);
+            }
+
+            @Override
+            public Object getValue() {
+                return isShowEmailField();
+            }
+
+            @Override
+            public Class<?> getType() {
+                return Boolean.class;
+            }
+
+            @Override
+            public String getName() {
+                return "Show Email Field"; //$NON-NLS-1$
+            }
+
+            @Override
+            public String getDescription() {
+                return "Can the user access the email field or not."; //$NON-NLS-1$
             }
 
             @Override

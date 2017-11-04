@@ -128,6 +128,13 @@ public class ContextMenuProvider
             });
             contextMenu.getItems().add(newEntry);
 
+            MenuItem newSharedEntry = new MenuItem(Messages.getString("ContextMenuProvider.ADD_SHARED_EVENT")); //$NON-NLS-1$
+            newSharedEntry.setOnAction(evt -> {
+                control.createEntryAt(param.getZonedDateTime());
+                contextMenu.hide();
+            });
+            contextMenu.getItems().add(newSharedEntry);
+
             /*
              * Only add submenu if view does not use all 24 hours.
              */

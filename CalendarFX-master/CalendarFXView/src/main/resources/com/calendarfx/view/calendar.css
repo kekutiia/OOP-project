@@ -64,8 +64,18 @@
     -fx-pref-width: 200.0px;
 }
 
+#email-field {
+    -fx-background-radius: 100.0px;
+    -fx-pref-width: 200.0px;
+}
+
 #search-icon {
     -glyph-name: "SEARCH";
+    -glyph-size: 1.0em;
+}
+
+#email-icon {
+    -glyph-name: "EMAIL";
     -glyph-size: 1.0em;
 }
 
