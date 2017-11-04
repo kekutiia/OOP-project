@@ -43,6 +43,7 @@ import javafx.util.StringConverter;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Set;
+import javafx.scene.control.Button;
 import org.controlsfx.control.textfield.CustomTextField;
 
 public class EntryDetailsView extends EntryPopOverPane {
@@ -76,6 +77,14 @@ public class EntryDetailsView extends EntryPopOverPane {
         CustomTextField emailField = new CustomTextField();
         emailField.disableProperty();
         
+        Button requestButton = new Button(Messages.getString("EntryDetailsView.REQUEST")); //$NON-NLS-1$
+        requestButton.setDefaultButton(true);
+        requestButton.setOnAction(evt -> {
+            
+        });
+
+        
+        
         TimeField startTimeField = new TimeField();
         startTimeField.setValue(entry.getStartTime());
         startTimeField.disableProperty().bind(entry.getCalendar().readOnlyProperty());
@@ -105,7 +114,7 @@ public class EntryDetailsView extends EntryPopOverPane {
         HBox emailBox = new HBox(10);
 
         emailBox.setAlignment(Pos.CENTER_LEFT);
-        emailBox.getChildren().addAll(addEmailLabel, emailField);
+        emailBox.getChildren().addAll(addEmailLabel, emailField, requestButton);
         
         startDateBox.setAlignment(Pos.CENTER_LEFT);
         endDateBox.setAlignment(Pos.CENTER_LEFT);
