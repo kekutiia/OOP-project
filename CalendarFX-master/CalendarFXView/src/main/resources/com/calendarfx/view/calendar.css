@@ -52,16 +52,11 @@
 #toolbar {
     -fx-padding: 10.0;
     -fx-border-width: 0.0 0.0 0.5 0.0;
-    -fx-border-color: gray;
+    -fx-border-color: grey;
 }
 
 #switcher {
 
-}
-
-#search-field {
-    -fx-background-radius: 100.0px;
-    -fx-pref-width: 200.0px;
 }
 
 #email-field {
@@ -69,12 +64,17 @@
     -fx-pref-width: 200.0px;
 }
 
-#search-icon {
-    -glyph-name: "SEARCH";
+#email-icon {
+    -glyph-name: "EMAIL";
     -glyph-size: 1.0em;
 }
 
-#email-icon {
+#search-field {
+    -fx-background-radius: 50.0px;
+    -fx-pref-width: 100.0px;
+}
+
+#search-icon {
     -glyph-name: "EMAIL";
     -glyph-size: 1.0em;
 }
@@ -790,6 +790,50 @@
     -fx-border-style: dashed none none none;
 }
 
+
+/* 
+ * --------------------------------------------------------------------------------------------------------------
+ * Styles needed by the EmailResultView.
+ */
+
+.email-result-view > .list-view,
+.email-result-view > .list-view:focused {
+    -fx-pref-width: 200.0px;
+    -fx-background-color: rgb(245.0, 245.0, 245.0);
+}
+
+.email-result-view > .list-view > .placeholder-label {
+    -fx-text-fill: gray;
+    -fx-font-size: 1.5em;
+}
+
+.email-result-cell:selected {
+    -fx-background-color: rgb(235.0, 235.0, 235.0);
+}
+
+.email-result-cell:filled:focused:selected {
+    -fx-background-color: rgb(235.0, 235.0, 235.0);
+}
+
+.email-result-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent lightgray transparent;
+    -fx-border-insets: 0.0 6.0 0.0 6.0;
+}
+
+.email-result-cell > .container > .title-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 0.9em;
+    -fx-text-fill: black;
+}
+
+.email-result-cell > .container > .date-time-pane > .date-label,
+.email-result-cell > .container > .date-time-pane > .time-label {
+    -fx-font-size: 0.8em;
+    -fx-text-fill: gray;
+}
+
+
 /* 
  * --------------------------------------------------------------------------------------------------------------
  * Styles needed by the SearchResultView.
@@ -797,7 +841,7 @@
 
 .search-result-view > .list-view,
 .search-result-view > .list-view:focused {
-    -fx-pref-width: 200.0px;
+    -fx-pref-width: 100.0px;
     -fx-background-color: rgb(245.0, 245.0, 245.0);
 }
 

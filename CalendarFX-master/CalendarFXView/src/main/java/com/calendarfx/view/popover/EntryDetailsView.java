@@ -55,6 +55,7 @@ public class EntryDetailsView extends EntryPopOverPane {
         getStyleClass().add("entry-details-view");
 
         Label fullDayLabel = new Label(Messages.getString("EntryDetailsView.FULL_DAY")); //$NON-NLS-1$
+        Label requestMeetingLabel = new Label(Messages.getString("EntryDetailsView.REQUEST_MEETING")); //$NON-NLS-1$
         Label startDateLabel = new Label(Messages.getString("EntryDetailsView.FROM")); //$NON-NLS-1$
         Label endDateLabel = new Label(Messages.getString("EntryDetailsView.TO")); //$NON-NLS-1$
         Label recurrentLabel = new Label(Messages.getString("EntryDetailsView.REPEAT")); //$NON-NLS-1$
@@ -66,7 +67,10 @@ public class EntryDetailsView extends EntryPopOverPane {
 
         CheckBox fullDay = new CheckBox();
         fullDay.disableProperty().bind(entry.getCalendar().readOnlyProperty());
-
+        
+        CheckBox requestMeeting = new CheckBox();
+        requestMeeting.disableProperty();
+        
         TimeField startTimeField = new TimeField();
         startTimeField.setValue(entry.getStartTime());
         startTimeField.disableProperty().bind(entry.getCalendar().readOnlyProperty());
@@ -164,6 +168,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         box.add(recurrentLabel, 0, 4);
         box.add(recurrenceButton, 1, 4);
         box.add(summaryLabel, 1, 5);
+        box.add(requestMeetingLabel, 0, 5);
+        box.add(requestMeeting, 1, 5);
 
         GridPane.setFillWidth(zoneBox, true);
         GridPane.setHgrow(zoneBox, Priority.ALWAYS);

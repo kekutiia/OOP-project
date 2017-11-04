@@ -103,7 +103,7 @@ public class CalendarView extends DateControl {
         this.emailField = (CustomTextField) TextFields.createClearableTextField();
         this.sourceView = new SourceView();
         this.searchResultView = new SearchResultView();
-        this.emailResultView = new EmailResultView();
+        //this.emailResultView = new EmailResultView();
         this.yearMonthView = new YearMonthView();
 
         if (Boolean.getBoolean("calendarfx.developer")) { //$NON-NLS-1$

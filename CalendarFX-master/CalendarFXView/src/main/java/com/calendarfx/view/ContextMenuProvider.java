@@ -16,6 +16,9 @@
 
 package com.calendarfx.view;
 
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.DateControl.ContextMenuParameter;
 import com.calendarfx.view.DayViewBase.EarlyLateHoursStrategy;
 import com.calendarfx.view.DayViewBase.HoursLayoutStrategy;
@@ -123,6 +126,18 @@ public class ContextMenuProvider
 
             MenuItem newEntry = new MenuItem(Messages.getString("ContextMenuProvider.ADD_NEW_EVENT")); //$NON-NLS-1$
             newEntry.setOnAction(evt -> {
+                control.createEntryAt(param.getZonedDateTime());
+                contextMenu.hide();
+            });
+            contextMenu.getItems().add(newEntry);
+            
+            MenuItem newCalendar = new MenuItem(Messages.getString("ContextMenuProvider.ADD_NEW_CALENDAR")); //$NON-NLS-1$
+            newEntry.setOnAction(evt -> {
+                Calendar requested = new Calendar("Requested Calendar");
+                requested.setStyle(Style.STYLE1);
+                CalendarSource myCalendarSource = new CalendarSource("Requested Calendars");
+                myCalendarSource.getCalendars().addAll(requested);
+                
                 control.createEntryAt(param.getZonedDateTime());
                 contextMenu.hide();
             });
