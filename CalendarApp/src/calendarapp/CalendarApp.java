@@ -34,14 +34,18 @@ public class CalendarApp extends Application {
 
             CalendarView calendarView = new CalendarView(); 
 
-                Calendar birthdays = new Calendar("Birthdays"); 
-                Calendar holidays = new Calendar("Holidays");
+                Calendar shardul = new Calendar("Shardul"); 
+                //Calendar holidays = new Calendar("Holidays");
 
-                birthdays.setStyle(Style.STYLE1); 
-                holidays.setStyle(Style.STYLE2);
+                shardul.setStyle(Style.STYLE1); 
+                //holidays.setStyle(Style.STYLE2);
 
                 CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
-                myCalendarSource.getCalendars().addAll(birthdays, holidays);
+                myCalendarSource.getCalendars().add(shardul);
+                shardul.setShortName("S");
+                
+                //shardul.
+                //myCalendarSource.getCalendars().addAll(birthdays, holidays);
 
                 calendarView.getCalendarSources().addAll(myCalendarSource); 
 
