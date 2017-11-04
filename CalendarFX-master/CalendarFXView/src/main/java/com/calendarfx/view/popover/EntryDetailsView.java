@@ -43,6 +43,7 @@ import javafx.util.StringConverter;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Set;
+import org.controlsfx.control.textfield.CustomTextField;
 
 public class EntryDetailsView extends EntryPopOverPane {
 
@@ -55,6 +56,7 @@ public class EntryDetailsView extends EntryPopOverPane {
         getStyleClass().add("entry-details-view");
 
         Label fullDayLabel = new Label(Messages.getString("EntryDetailsView.FULL_DAY")); //$NON-NLS-1$
+        Label addEmailLabel = new Label(Messages.getString("EntryDetailsView.ADD_EMAIL")); //$NON-NLS-1$
         Label requestMeetingLabel = new Label(Messages.getString("EntryDetailsView.REQUEST_MEETING")); //$NON-NLS-1$
         Label startDateLabel = new Label(Messages.getString("EntryDetailsView.FROM")); //$NON-NLS-1$
         Label endDateLabel = new Label(Messages.getString("EntryDetailsView.TO")); //$NON-NLS-1$
@@ -70,6 +72,9 @@ public class EntryDetailsView extends EntryPopOverPane {
         
         CheckBox requestMeeting = new CheckBox();
         requestMeeting.disableProperty();
+        
+        CustomTextField emailField = new CustomTextField();
+        emailField.disableProperty();
         
         TimeField startTimeField = new TimeField();
         startTimeField.setValue(entry.getStartTime());
@@ -96,7 +101,12 @@ public class EntryDetailsView extends EntryPopOverPane {
 
         HBox startDateBox = new HBox(10);
         HBox endDateBox = new HBox(10);
+        
+        HBox emailBox = new HBox(10);
 
+        emailBox.setAlignment(Pos.CENTER_LEFT);
+        emailBox.getChildren().addAll(addEmailLabel, emailField);
+        
         startDateBox.setAlignment(Pos.CENTER_LEFT);
         endDateBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -170,7 +180,7 @@ public class EntryDetailsView extends EntryPopOverPane {
         box.add(summaryLabel, 1, 5);
         box.add(requestMeetingLabel, 0, 5);
         box.add(requestMeeting, 1, 5);
-
+        
         GridPane.setFillWidth(zoneBox, true);
         GridPane.setHgrow(zoneBox, Priority.ALWAYS);
 
@@ -198,6 +208,13 @@ public class EntryDetailsView extends EntryPopOverPane {
         // full day
         fullDay.setOnAction(evt -> entry.setFullDay(fullDay.isSelected()));
 
+        // request meeting
+        //requestMeeting.setOnAction(evt -> box.add(addEmailLabel, 0, 6)); 
+        requestMeeting.setOnAction(evt ->{
+                if (requestMeeting.isSelected())
+                box.add(emailBox, 1, 6);
+        });
+        
         // zone Id
         zoneBox.setOnAction(evt -> entry.setZoneId(zoneBox.getValue()));
 
