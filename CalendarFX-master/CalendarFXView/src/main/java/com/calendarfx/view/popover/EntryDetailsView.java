@@ -212,7 +212,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         //requestMeeting.setOnAction(evt -> box.add(addEmailLabel, 0, 6)); 
         requestMeeting.setOnAction(evt ->{
                 if (requestMeeting.isSelected())
-                box.add(emailBox, 1, 6);
+                box.addRow(1, emailBox);
+                else box.getChildren().removeAll(emailBox);
         });
         
         // zone Id
