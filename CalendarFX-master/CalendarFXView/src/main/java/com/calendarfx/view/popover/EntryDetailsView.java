@@ -21,6 +21,7 @@ import com.calendarfx.util.Util;
 import com.calendarfx.view.Messages;
 import com.calendarfx.view.RecurrenceView;
 import com.calendarfx.view.TimeField;
+import impl.com.calendarfx.view.DayEntryViewSkin;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,7 +81,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         Button requestButton = new Button(Messages.getString("EntryDetailsView.REQUEST")); //$NON-NLS-1$
         requestButton.setDefaultButton(true);
         requestButton.setOnAction(evt -> {
-            
+            String temp = entry.getTitle();
+            entry.setTitle(temp + ": Pending Approval");
         });
 
         

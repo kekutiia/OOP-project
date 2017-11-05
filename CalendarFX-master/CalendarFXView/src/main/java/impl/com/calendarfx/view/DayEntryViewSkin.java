@@ -76,7 +76,7 @@ public class DayEntryViewSkin extends SkinBase<DayEntryView> {
 
         updateStyles();
     }
-
+    
     /**
      * @returns The entry.
      */
