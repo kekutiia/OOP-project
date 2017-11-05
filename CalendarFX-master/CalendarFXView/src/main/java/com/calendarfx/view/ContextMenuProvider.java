@@ -131,7 +131,7 @@ public class ContextMenuProvider
             });
             contextMenu.getItems().add(newEntry);
             
-            MenuItem newCalendar = new MenuItem(Messages.getString("ContextMenuProvider.ADD_NEW_CALENDAR")); //$NON-NLS-1$
+            /*MenuItem newCalendar = new MenuItem(Messages.getString("ContextMenuProvider.ADD_NEW_CALENDAR")); //$NON-NLS-1$
             newEntry.setOnAction(evt -> {
                 Calendar requested = new Calendar("Requested Calendar");
                 requested.setStyle(Style.STYLE1);
@@ -141,7 +141,7 @@ public class ContextMenuProvider
                 control.createEntryAt(param.getZonedDateTime());
                 contextMenu.hide();
             });
-            contextMenu.getItems().add(newEntry);
+            contextMenu.getItems().add(newEntry);*/
 
             MenuItem newSharedEntry = new MenuItem(Messages.getString("ContextMenuProvider.ADD_SHARED_EVENT")); //$NON-NLS-1$
             newSharedEntry.setOnAction(evt -> {
