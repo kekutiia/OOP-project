@@ -20,6 +20,7 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarFXControl;
 import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.DeveloperConsole;
+import com.calendarfx.view.EmailResultView;
 import com.calendarfx.view.Messages;
 import com.calendarfx.view.SearchResultView;
 import com.calendarfx.view.SourceView;
@@ -87,7 +88,9 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
     private ToggleButton trayButton;
     private Button addCalendarButton;
     private Button printButton;
+    private Button requestCalendar;
     private SearchResultView searchResultView;
+    private EmailResultView emailResultView;
     private StackPane stackPane;
 
     private DayPage dayPage;
@@ -101,8 +104,12 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
     private ToggleButton showWeek;
     private ToggleButton showDay;
     private HBox leftToolBarBox;
+    private HBox rightToolBarBox;
     private SegmentedButton switcher;
-
+    
+    private CustomTextField searchField;
+    private CustomTextField emailField;
+    
     public CalendarViewSkin(CalendarView view) {
         super(view);
 
@@ -236,21 +243,20 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         centerToolBarBox.setAlignment(Pos.CENTER);
         toolBarGridPane.add(centerToolBarBox, 1, 0);
 
-        // tooltips
-        trayButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SOURCE_TRAY"))); //$NON-NLS-1$
-        addCalendarButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_ADD_CALENDAR"))); //$NON-NLS-1$
-        printButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_PRINT"))); //$NON-NLS-1$
-        showDay.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_DAY"))); //$NON-NLS-1$
-        showWeek.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_WEEK"))); //$NON-NLS-1$
-        showMonth.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_MONTH"))); //$NON-NLS-1$
-        showYear.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_YEAR"))); //$NON-NLS-1$
-
         // toolbar right
-
+        this.requestCalendar = new Button(Messages.getString("CalendarViewSkin.REQUEST_CALENDAR"));
+        //this.requestCalendar.setOnAction(evt -> print());
+        
+        
         Text searchIcon = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.SEARCH);
         searchIcon.setId("search-icon"); //$NON-NLS-1$
+        
+        //email field 
+        Text emailIcon = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.ADDRESS_BOOK);
+        emailIcon.setId("email-icon"); //$NON-NLS-1$
 
-        CustomTextField searchField = view.getSearchField();
+        //search field 
+        searchField = view.getSearchField();
         searchField.setPrefColumnCount(20);
         searchField.setLeft(searchIcon);
         searchField.setId("search-field"); //$NON-NLS-1$
@@ -258,8 +264,19 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         searchField.getStylesheets().add(CalendarFXControl.class.getResource("calendar.css").toExternalForm()); //$NON-NLS-1$
         GridPane.setFillWidth(searchField, false);
         GridPane.setHalignment(searchField, HPos.RIGHT);
-        toolBarGridPane.add(searchField, 2, 0);
+        //toolBarGridPane.add(searchField, 2, 0);
 
+        //email field 
+        emailField = view.getEmailField();
+        emailField.setPrefColumnCount(20);
+        emailField.setLeft(emailIcon);
+        emailField.setId("email-field"); //$NON-NLS-1$
+        emailField.setPromptText(Messages.getString("CalendarViewSkin.PROMPT_EMAIL_FIELD")); //$NON-NLS-1$
+        emailField.getStylesheets().add(CalendarFXControl.class.getResource("calendar.css").toExternalForm()); //$NON-NLS-1$
+        GridPane.setFillWidth(emailField, false);
+        GridPane.setHalignment(emailField, HPos.LEFT);
+        //toolBarGridPane.add(emailField, 2, 0);
+        
         BorderPane borderPane1 = new BorderPane();
 
         borderPane1.topProperty().bind(view.headerProperty());
@@ -328,6 +345,30 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         selectedPage.toFront();
 
         hideNonSelectedPages();
+        
+        // tooltips
+        trayButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SOURCE_TRAY"))); //$NON-NLS-1$
+        addCalendarButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_ADD_CALENDAR"))); //$NON-NLS-1$
+        printButton.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_PRINT"))); //$NON-NLS-1$
+        showDay.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_DAY"))); //$NON-NLS-1$
+        showWeek.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_WEEK"))); //$NON-NLS-1$
+        showMonth.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_MONTH"))); //$NON-NLS-1$
+        showYear.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_SHOW_YEAR"))); //$NON-NLS-1$
+        requestCalendar.setTooltip(new Tooltip(Messages.getString("CalendarViewSkin.TOOLTIP_REQUEST_CALENDAR"))); //$NON-NLS-1$
+        
+        rightToolBarBox = new HBox(5);     
+        rightToolBarBox.setAlignment(Pos.CENTER_RIGHT);
+        buildRightToolBarBox();
+        toolBarGridPane.add(rightToolBarBox, 2, 0);
+
+//        InvalidationListener buildRightToolBarBoxListener = it -> buildRightToolBarBox();
+//        view.showSourceTrayButtonProperty().addListener(buildLeftToolBarBoxListener);
+//        view.showAddCalendarButtonProperty().addListener(buildLeftToolBarBoxListener);
+//        view.showPrintButtonProperty().addListener(buildLeftToolBarBoxListener);
+//        view.showPageToolBarControlsProperty().addListener(buildLeftToolBarBoxListener);
+//        view.selectedPageProperty().addListener(buildLeftToolBarBoxListener);
+
+        
     }
 
     private void openTray() {
@@ -393,6 +434,27 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         }
     }
 
+    private void buildRightToolBarBox() {
+        rightToolBarBox.getChildren().clear();
+
+        if (getSkinnable().isShowEmailField()) {
+            rightToolBarBox.getChildren().add(emailField);
+        }
+
+        if (getSkinnable().isShowAddCalendarButton()) {
+            rightToolBarBox.getChildren().add(requestCalendar);
+        }
+
+        if (!rightToolBarBox.getChildren().isEmpty() && getSkinnable().isShowSearchField()) {
+            rightToolBarBox.getChildren().add(new Separator(Orientation.VERTICAL));
+        }
+
+        if (getSkinnable().isShowSearchField()) {
+            rightToolBarBox.getChildren().add(searchField);
+        }
+    }
+
+    
     private Timeline timeline;
 
     private void changePage() {
