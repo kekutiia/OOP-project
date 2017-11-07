@@ -16,6 +16,8 @@
 
 package impl.com.calendarfx.view;
 
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarFXControl;
 import com.calendarfx.view.CalendarView;
@@ -79,6 +81,8 @@ import static com.calendarfx.view.RequestEvent.REQUEST_WEEK;
 import static com.calendarfx.view.RequestEvent.REQUEST_YEAR;
 import static com.calendarfx.view.RequestEvent.REQUEST_YEAR_MONTH;
 import static com.calendarfx.view.YearMonthView.ClickBehaviour.PERFORM_SELECTION;
+import java.time.ZonedDateTime;
+import static java.time.temporal.TemporalQueries.zone;
 import static javafx.geometry.Side.RIGHT;
 import static javafx.scene.control.SelectionMode.SINGLE;
 
@@ -245,6 +249,12 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
 
         // toolbar right
         this.requestCalendar = new Button(Messages.getString("CalendarViewSkin.REQUEST_CALENDAR"));
+        this.requestCalendar.setOnAction(evt -> {
+            view.createCalendarSource();
+            Entry entry = view.createEntryAt(ZonedDateTime.now());
+            entry.setTitle("Badminton");
+        });
+        
         //this.requestCalendar.setOnAction(evt -> print());
         
         
