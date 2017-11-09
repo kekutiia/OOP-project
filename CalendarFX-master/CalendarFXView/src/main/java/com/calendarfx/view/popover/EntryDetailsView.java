@@ -82,7 +82,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         requestButton.setDefaultButton(true);
         requestButton.setOnAction(evt -> {
             String temp = entry.getTitle();
-            entry.setTitle(temp + ": Pending Approval");
+            if (temp.contains("Pending Approval")){
+            } else entry.setTitle(temp + ": Pending Approval");
         });
 
         

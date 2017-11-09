@@ -251,7 +251,9 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         this.requestCalendar = new Button(Messages.getString("CalendarViewSkin.REQUEST_CALENDAR"));
         this.requestCalendar.setOnAction(evt -> {
             view.createCalendarSource();
-            Entry entry = view.createEntryAt(ZonedDateTime.now());
+            CalendarSource s = view.getCalendarSources().get(view.getCalendarSources().size()-1);
+            Calendar cal = s.getCalendars().get(s.getCalendars().size()-1);
+            Entry entry = view.createEntryAt(ZonedDateTime.now(),cal);
             entry.setTitle("Badminton");
         });
         
