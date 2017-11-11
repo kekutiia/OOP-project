@@ -20,8 +20,8 @@ import com.calendarfx.util.LoggingDomain;
 import com.calendarfx.util.Util;
 import com.calendarfx.view.Messages;
 import com.calendarfx.view.RecurrenceView;
-import com.google.ical.compat.jodatime.LocalDateIterator;
-import com.google.ical.compat.jodatime.LocalDateIteratorFactory;
+//import com.google.ical.compat.jodatime.LocalDateIterator;
+//import com.google.ical.compat.jodatime.LocalDateIteratorFactory;
 import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.RRule;
@@ -506,7 +506,7 @@ public class RecurrenceViewSkin extends SkinBase<RecurrenceView> {
 
         getSkinnable().setRecurrenceRule(rule.toIcal());
 
-        if (LoggingDomain.RECURRENCE.isLoggable(Level.FINE)) {
+        /*if (LoggingDomain.RECURRENCE.isLoggable(Level.FINE)) {
             LoggingDomain.RECURRENCE.fine(
                     "test dumping 10 recurrences starting with today's date"); //$NON-NLS-1$
 
@@ -527,7 +527,7 @@ public class RecurrenceViewSkin extends SkinBase<RecurrenceView> {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     private void maybeAddWeekday(List<WeekdayNum> weekdays,
