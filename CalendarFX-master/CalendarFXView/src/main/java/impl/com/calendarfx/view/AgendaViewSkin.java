@@ -110,7 +110,7 @@ public class AgendaViewSkin extends DateControlSkin<AgendaView> implements LoadD
     protected void calendarChanged(Calendar calendar) {
         updateList("calendar changed");
     }
-
+    
     @Override
     protected void entryIntervalChanged(CalendarEvent evt) {
         updateList(evt, "entry interval changed, entry = " + evt.getEntry());

@@ -22,7 +22,6 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarFXControl;
 import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.DeveloperConsole;
-import com.calendarfx.view.EmailResultView;
 import com.calendarfx.view.Messages;
 import com.calendarfx.view.SearchResultView;
 import com.calendarfx.view.SourceView;
@@ -94,7 +93,7 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
     private Button printButton;
     private Button requestCalendar;
     private SearchResultView searchResultView;
-    private EmailResultView emailResultView;
+    //private EmailResultView emailResultView;
     private StackPane stackPane;
 
     private DayPage dayPage;

@@ -71,7 +71,7 @@ public class EntryDetailsView extends EntryPopOverPane {
 
         CheckBox fullDay = new CheckBox();
         fullDay.disableProperty().bind(entry.getCalendar().readOnlyProperty());
-        
+       
         CheckBox requestMeeting = new CheckBox();
         requestMeeting.disableProperty();
         
@@ -82,8 +82,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         requestButton.setDefaultButton(true);
         requestButton.setOnAction(evt -> {
             String temp = entry.getTitle();
-            if (temp.contains("Pending Approval")){
-            } else entry.setTitle(temp + ": Pending Approval");
+            if (!(temp.contains("Pending Approval")))
+                entry.setTitle(temp + ": Pending Approval");
         });
 
         
@@ -187,8 +187,8 @@ public class EntryDetailsView extends EntryPopOverPane {
         box.add(endDateBox, 1, 2);
         box.add(zoneLabel, 0, 3);
         box.add(zoneBox, 1, 3);
-        box.add(recurrentLabel, 0, 4);
-        box.add(recurrenceButton, 1, 4);
+        //box.add(recurrentLabel, 0, 4);
+        //box.add(recurrenceButton, 1, 4);
         box.add(summaryLabel, 1, 5);
         box.add(requestMeetingLabel, 0, 5);
         box.add(requestMeeting, 1, 5);

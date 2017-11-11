@@ -152,7 +152,7 @@ public abstract class DateControlSkin<C extends DateControl> extends SkinBase<C>
 
     protected void entryFullDayChanged(CalendarEvent evt) {
     }
-
+    
     protected void entryRecurrenceRuleChanged(CalendarEvent evt) {
     }
 

@@ -68,8 +68,6 @@ public class CalendarView extends DateControl {
     
     private SearchResultView searchResultView;
     
-    private EmailResultView emailResultView;
-
     private YearMonthView yearMonthView;
 
     private DayPage dayPage;
@@ -245,9 +243,9 @@ public class CalendarView extends DateControl {
      *
      * @return the email result view
      */
-    public final EmailResultView getEmailResultView() {
+    /*public final EmailResultView getEmailResultView() {
         return emailResultView;
-    }
+    }*/
 
     /**
      * Returns the source view child control.
