@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javafx.stage.StageStyle;
 
 public class CalendarApp extends Application {
 
@@ -93,15 +94,17 @@ public class CalendarApp extends Application {
         updateTimeThread.start();
 
         Scene scene = new Scene(stackPane);
-        primaryStage.setTitle("Calendar");
+        primaryStage.setTitle("pick");
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1300);
-        primaryStage.setHeight(1000);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(700);
+        primaryStage.setResizable(true);
+        //primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 }
