@@ -32,11 +32,12 @@
                               <Image url="@loginlogored.png" />
                            </image>
                         </ImageView>
-                        <JFXTextField labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
+                        <JFXTextField fx:id = "username" onAction = "#handleLoginButton" labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXTextField>
+                        
                         <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter password">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
@@ -64,12 +65,12 @@
                      <children>
                         <Label  fx:id="pickTitle"  alignment="CENTER" prefHeight="34.0" prefWidth="425.0" text="pick" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font name="Roboto Bold" size="18.0" />
+                              <Font name="Comic Sans MS" size="40.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="425.0" text="building better relationships" textAlignment="CENTER" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="425.0" text="save time. build better relationships" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font name="Roboto Bold" size="14.0" />
+                              <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Label>
                      </children>

@@ -1,9 +1,13 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.calendarfx.login;
+
+import com.calendarfx.exceptions.EmailParser;
+import com.calendarfx.exceptions.IncorrectEmailInput;
 
 import com.calendarfx.app.CalendarApp;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -27,12 +32,26 @@ public class FXMLDocumentController implements Initializable {
     private JFXButton cancel;
     private Login main;
     private Label pickTitle;
+   
+    @FXML private TextField username;
 
     @FXML
     private void handleLoginButton(ActionEvent event) {
         //CalendarApp cal= new CalendarApp();
+        try
+        {
+           String email = username.getText(); 
+           EmailParser myParser = new EmailParser(email);
+           myParser.parse();
+           this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
+        }
         
-        this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
+        catch(IncorrectEmailInput e)
+	{
+            
+            System.out.println("Invalid email input. Please input valid email");
+					
+	}
         
     }
 
