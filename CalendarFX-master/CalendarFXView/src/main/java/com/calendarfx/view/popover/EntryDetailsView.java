@@ -16,6 +16,8 @@
 
 package com.calendarfx.view.popover;
 
+import com.calendarfx.exceptions.EmailParser;
+import com.calendarfx.exceptions.IncorrectEmailInput;
 import com.calendarfx.model.Entry;
 import com.calendarfx.util.Util;
 import com.calendarfx.view.Messages;
@@ -78,12 +80,27 @@ public class EntryDetailsView extends EntryPopOverPane {
         CustomTextField emailField = new CustomTextField();
         emailField.disableProperty();
         
+        
+        
+        
         Button requestButton = new Button(Messages.getString("EntryDetailsView.REQUEST")); //$NON-NLS-1$
         requestButton.setDefaultButton(true);
         requestButton.setOnAction(evt -> {
+            try
+            {
+            String email = emailField.getText();
+            EmailParser myParser = new EmailParser(email);
+            myParser.parse();
             String temp = entry.getTitle();
             if (!(temp.contains("Pending Approval")))
-                entry.setTitle(temp + ": Pending Approval");
+            entry.setTitle(temp + ": Pending Approval");  
+            }
+            
+            catch (IncorrectEmailInput e)
+            {
+                System.out.println("Invalid input. Please input valid email");
+            }
+
         });
 
         

@@ -16,6 +16,8 @@
 
 package impl.com.calendarfx.view;
 
+import com.calendarfx.exceptions.EmailParser;
+import com.calendarfx.exceptions.IncorrectEmailInput;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
@@ -244,28 +246,15 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         GridPane.setValignment(switcher, VPos.CENTER);
         centerToolBarBox.add(switcher, 0, 0);
         centerToolBarBox.setAlignment(Pos.CENTER);
-        toolBarGridPane.add(centerToolBarBox, 1, 0);
-
-        // toolbar right
-        this.requestCalendar = new Button(Messages.getString("CalendarViewSkin.REQUEST_CALENDAR"));
-        this.requestCalendar.setOnAction(evt -> {
-            view.createCalendarSource();
-            CalendarSource s = view.getCalendarSources().get(view.getCalendarSources().size()-1);
-            Calendar cal = s.getCalendars().get(s.getCalendars().size()-1);
-            Entry entry = view.createEntryAt(ZonedDateTime.now(),cal);
-            entry.setTitle("Badminton");
-        });
-        
-        //this.requestCalendar.setOnAction(evt -> print());
-        
+        toolBarGridPane.add(centerToolBarBox, 1, 0);    
+                
+        //email field 
+        Text emailIcon = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.ADDRESS_BOOK);
+        emailIcon.setId("email-icon"); //$NON-NLS-1$
         
         Text searchIcon = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.SEARCH);
         searchIcon.setId("search-icon"); //$NON-NLS-1$
         
-        //email field 
-        Text emailIcon = FontAwesomeIconFactory.get().createIcon(FontAwesomeIcon.ADDRESS_BOOK);
-        emailIcon.setId("email-icon"); //$NON-NLS-1$
-
         //search field 
         searchField = view.getSearchField();
         searchField.setPrefColumnCount(20);
@@ -278,6 +267,7 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         //toolBarGridPane.add(searchField, 2, 0);
 
         //email field 
+      
         emailField = view.getEmailField();
         emailField.setPrefColumnCount(20);
         emailField.setLeft(emailIcon);
@@ -287,7 +277,36 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
         GridPane.setFillWidth(emailField, false);
         GridPane.setHalignment(emailField, HPos.LEFT);
         //toolBarGridPane.add(emailField, 2, 0);
+       
+
         
+        // toolbar right
+        this.requestCalendar = new Button(Messages.getString("CalendarViewSkin.REQUEST_CALENDAR"));
+        this.requestCalendar.setOnAction(evt -> {
+            
+            try
+            {
+            String email = emailField.getText();
+            EmailParser myParser = new EmailParser(email);
+            myParser.parse();
+            view.createCalendarSource();
+            CalendarSource s = view.getCalendarSources().get(view.getCalendarSources().size()-1);
+            Calendar cal = s.getCalendars().get(s.getCalendars().size()-1);
+            Entry entry = view.createEntryAt(ZonedDateTime.now(),cal);
+            entry.setTitle("Badminton");  
+            }
+      
+            catch (IncorrectEmailInput e)
+            {
+              System.out.println("Wrong input. Please provide valid email");        
+            }
+            
+        });
+        
+        //this.requestCalendar.setOnAction(evt -> print());
+        
+       
+
         BorderPane borderPane1 = new BorderPane();
 
         borderPane1.topProperty().bind(view.headerProperty());
