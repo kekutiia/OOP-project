@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -36,6 +37,12 @@ public class FXMLDocumentController implements Initializable {
     private Label pickTitle;
    
     @FXML private TextField username;
+    @FXML private PasswordField password;
+    
+    
+    public static String[] userSimon = {"simon.perrault@yale-nus.sg","iloveoop"}; 
+    public static String[] userAlex = {"alexpont@gmail.com","iloveoop"}; 
+
 
     @FXML
     private void handleLoginButton(ActionEvent event) {
@@ -43,9 +50,11 @@ public class FXMLDocumentController implements Initializable {
         try
         {
            String email = username.getText(); 
-           EmailParser myParser = new EmailParser(email);
+           String code = password.getText();
+           EmailParser myParser = new EmailParser(email); 
            myParser.parse();
-           this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
+           this.verifyUser(email, code);
+           //this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
         }
         
         catch(IncorrectEmailInput e)
@@ -56,7 +65,6 @@ public class FXMLDocumentController implements Initializable {
             alert.setContentText("This is not a valid email address. Please input valid email");
             alert.showAndWait();
             username.clear();
- 
 					
 	}
         
@@ -85,8 +93,36 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    public void setTitle(String txt) {
+    public void setTitle(String txt) 
+    {
     pickTitle.setText(txt);
-}
+    }   
+    
+    public void verifyUser (String email, String password)
+    {
+        if(email.equals(this.userSimon[0]) && password.equals(this.userSimon[1]))
+        {
+            this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
+        }
+        else if(email.equals(this.userAlex[0]) && password.equals(this.userAlex[1]))
+        {
+           this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp()); 
+        }
+        
+        else
+        {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("This user has not been registered or incorrect password");
+            alert.setContentText("Please log-in with a registered username or input a valid password");
+            alert.showAndWait();
+            username.clear();
+            
+ 
+        }
+    }
+            
+            
+
 
 }

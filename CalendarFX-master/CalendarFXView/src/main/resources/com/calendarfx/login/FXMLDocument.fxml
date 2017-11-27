@@ -32,17 +32,21 @@
                               <Image url="@loginlogored.png" />
                            </image>
                         </ImageView>
+                        
                         <JFXTextField fx:id = "username" onAction = "#handleLoginButton" labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXTextField>
                         
-                        <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter password">
+                        
+                        <JFXPasswordField fx:id = "password" onAction = "#handleLoginButton" labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter password">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXPasswordField>
+                        
+                        
                         <JFXCheckBox checkedColor="#ff1744" layoutX="75.0" layoutY="244.0" prefHeight="31.0" prefWidth="171.0" text="Keep me logged in">
                            <font>
                               <Font name="Roboto Regular" size="14.0" />
