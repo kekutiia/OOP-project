@@ -85,6 +85,7 @@ import static com.calendarfx.view.YearMonthView.ClickBehaviour.PERFORM_SELECTION
 import java.time.ZonedDateTime;
 import static java.time.temporal.TemporalQueries.zone;
 import static javafx.geometry.Side.RIGHT;
+import javafx.scene.control.Alert;
 import static javafx.scene.control.SelectionMode.SINGLE;
 
 public class CalendarViewSkin extends SkinBase<CalendarView> {
@@ -298,7 +299,13 @@ public class CalendarViewSkin extends SkinBase<CalendarView> {
       
             catch (IncorrectEmailInput e)
             {
-              System.out.println("Wrong input. Please provide valid email");        
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid email input");
+            alert.setContentText("This is not a valid email address. Please input valid email");
+            alert.showAndWait();
+            emailField.clear();
+             
             }
             
         });

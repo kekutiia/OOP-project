@@ -46,6 +46,8 @@ import javafx.util.StringConverter;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Set;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import org.controlsfx.control.textfield.CustomTextField;
 
@@ -85,7 +87,7 @@ public class EntryDetailsView extends EntryPopOverPane {
         
         Button requestButton = new Button(Messages.getString("EntryDetailsView.REQUEST")); //$NON-NLS-1$
         requestButton.setDefaultButton(true);
-        requestButton.setOnAction(evt -> {
+        requestButton.setOnAction((ActionEvent evt) -> {
             try
             {
             String email = emailField.getText();
@@ -98,7 +100,12 @@ public class EntryDetailsView extends EntryPopOverPane {
             
             catch (IncorrectEmailInput e)
             {
-                System.out.println("Invalid input. Please input valid email");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid email input");
+                alert.setContentText("This is not a valid email address. Please input valid email");
+                alert.showAndWait();
+                emailField.clear();
             }
 
         });

@@ -17,6 +17,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -48,8 +50,13 @@ public class FXMLDocumentController implements Initializable {
         
         catch(IncorrectEmailInput e)
 	{
-            
-            System.out.println("Invalid email input. Please input valid email");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid email input");
+            alert.setContentText("This is not a valid email address. Please input valid email");
+            alert.showAndWait();
+            username.clear();
+ 
 					
 	}
         
