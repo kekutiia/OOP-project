@@ -18,12 +18,16 @@ package com.calendarfx.view.popover;
 
 import com.calendarfx.exceptions.EmailParser;
 import com.calendarfx.exceptions.IncorrectEmailInput;
+
+import com.calendarfx.login.SendClient;
 import com.calendarfx.model.Entry;
 import com.calendarfx.util.Util;
 import com.calendarfx.view.Messages;
 import com.calendarfx.view.RecurrenceView;
 import com.calendarfx.view.TimeField;
 import impl.com.calendarfx.view.DayEntryViewSkin;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,10 +46,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.util.StringConverter;
-
+import com.calendarfx.login.MessageUtils;
 import java.time.ZoneId;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -84,7 +91,9 @@ public class EntryDetailsView extends EntryPopOverPane {
         
         
         
-        
+        /**
+         * this is for requesting a meeting: sets up a new socket which sends the meeting request
+         */
         Button requestButton = new Button(Messages.getString("EntryDetailsView.REQUEST")); //$NON-NLS-1$
         requestButton.setDefaultButton(true);
         requestButton.setOnAction((ActionEvent evt) -> {
@@ -95,7 +104,22 @@ public class EntryDetailsView extends EntryPopOverPane {
             myParser.parse();
             String temp = entry.getTitle();
             if (!(temp.contains("Pending Approval")))
-            entry.setTitle(temp + ": Pending Approval");  
+            entry.setTitle(temp + ": Pending Approval");
+            LocalDateTime start = entry.getStartAsLocalDateTime();
+            LocalDateTime finish = entry.getEndAsLocalDateTime();
+            String start_str = start.toString();
+            String end_str = finish.toString();
+            String to_send = temp + "|" + start_str + "|" + end_str;
+            Random rand = new Random();
+            int value = rand.nextInt(50);
+            String name = "someemail" + value;
+            SendClient client = new SendClient(name, null);
+                try {
+                    client.connect("127.0.0.1", "1664");
+                    client.sendMessageFromConsole(new String(MessageUtils.message(email,to_send)));
+                } catch (IOException ex) {
+                    Logger.getLogger(EntryDetailsView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             catch (IncorrectEmailInput e)
@@ -106,6 +130,8 @@ public class EntryDetailsView extends EntryPopOverPane {
                 alert.setContentText("This is not a valid email address. Please input valid email");
                 alert.showAndWait();
                 emailField.clear();
+            } catch (Exception ex) {
+                Logger.getLogger(EntryDetailsView.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         });

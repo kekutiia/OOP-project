@@ -16,10 +16,12 @@
 
 package com.calendarfx.app;
 
+import com.calendarfx.login.SendClient;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
+import static java.lang.Thread.sleep;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -31,24 +33,43 @@ import java.time.LocalTime;
 import javafx.stage.StageStyle;
 
 public class CalendarApp extends Application {
-
+    
+    String email;
+    
+    public CalendarApp(String email){
+       this.email = email;
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
+        
         CalendarView calendarView = new CalendarView();
-
-        Calendar katja = new Calendar("Katja");
-        Calendar dirk = new Calendar("Dirk");
-        Calendar philip = new Calendar("Philip");
-        Calendar jule = new Calendar("Jule");
-        Calendar armin = new Calendar("Armin");
+        
+        
+            CalendarSimon(primaryStage, calendarView);
+            SendClient client = new SendClient(this.email, calendarView);
+                client.connect("127.0.0.1", "1664");
+       }
+        
+    /**
+     *creates a calendar for user Simon (ideally, but actually does not)
+     * @param primaryStage the stage of the calendar
+     * @param calendarView the view of the calendar 
+     */
+    public void CalendarSimon(Stage primaryStage, CalendarView calendarView) {
+        Calendar katja = new Calendar("Grading");
+        Calendar dirk = new Calendar("Simon");
+        Calendar philip = new Calendar("Assignments");
+        Calendar jule = new Calendar("Planning a sabbatical");
+        //Calendar armin = new Calendar("Armin");
         Calendar birthdays = new Calendar("Birthdays");
         Calendar holidays = new Calendar("Holidays");
 
-        katja.setShortName("K");
-        dirk.setShortName("D");
-        philip.setShortName("P");
+        katja.setShortName("G");
+        dirk.setShortName("S");
+        philip.setShortName("A");
         jule.setShortName("J");
-        armin.setShortName("A");
+        //armin.setShortName("A");
         birthdays.setShortName("B");
         holidays.setShortName("H");
 
@@ -56,12 +77,12 @@ public class CalendarApp extends Application {
         dirk.setStyle(Style.STYLE2);
         philip.setStyle(Style.STYLE3);
         jule.setStyle(Style.STYLE4);
-        armin.setStyle(Style.STYLE5);
+        //armin.setStyle(Style.STYLE5);
         birthdays.setStyle(Style.STYLE6);
         holidays.setStyle(Style.STYLE7);
 
         CalendarSource familyCalendarSource = new CalendarSource("Family");
-        familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule, armin);
+        familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule);
 
         calendarView.getCalendarSources().setAll(familyCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
@@ -103,7 +124,7 @@ public class CalendarApp extends Application {
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
-
+    
     /*public static void main(String[] args) {
         launch(args);
     }*/

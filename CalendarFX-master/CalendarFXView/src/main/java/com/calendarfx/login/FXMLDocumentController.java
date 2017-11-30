@@ -13,6 +13,8 @@ import com.calendarfx.app.CalendarApp;
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,11 +104,20 @@ public class FXMLDocumentController implements Initializable {
     {
         if(email.equals(this.userSimon[0]) && password.equals(this.userSimon[1]))
         {
-            this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp());
+            try {
+                this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp(email));   
+            } catch (Exception ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(email.equals(this.userAlex[0]) && password.equals(this.userAlex[1]))
         {
-           this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp()); 
+            try {
+                this.switchWindow((Stage) login.getScene().getWindow(), new CalendarApp(email));
+                
+            } catch (Exception ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         else
